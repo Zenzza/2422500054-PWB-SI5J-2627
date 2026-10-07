@@ -58,3 +58,4 @@ $route['admin/login'] = 'admin/admin_auth_controller/index';
 $route['admin/logout'] = 'admin/admin_auth_controller/logout';
 $route['admin/kategori'] = 'admin/Kategori_controller/index';
 $route['admin/kategori/tambah'] = 'admin/Kategori_controller/tambah_kategori';
+$route['admin/kategori/hapus/(:num)'] = 'admin/Kategori_controller/hapus_kategori/$1';
