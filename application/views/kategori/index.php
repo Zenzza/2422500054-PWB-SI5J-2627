@@ -25,16 +25,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Kategori</h5>
-                            <p class="card-text">
-                                <div class="card">
-                                <a href="<?= base_url('admin/kategori/tambah') ?>" class="btn btn-labeled btn-primary">
-                                    <span class="btn-label">
-                                        <i class="fa fa-plus"></i>
-                                    </span>
-                                    Kategori
+                            <h5>Kategori</h5>
+                            <a href="<?= base_url('admin/kategori/tambah') ?>" class="btn btn-primary mb-3">
+                                <i class="fa fa-plus"></i> Kategori
                             </a>
-                        <div class="card-body">
                             <?php if ($this->session->flashdata('message')) : ?>
                                 <?= $this->session->flashdata('message') ?>
                             <?php endif ?>
@@ -50,7 +44,7 @@
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($list_kategori as $kategori) : ?>
-                                            <tr data-widget="expandable-table" aria-expanded="false">
+                                        <tr data-widget="expandable-table" aria-expanded="false">
                                             <td><?= $no ?></td>
                                             <td><?= $kategori['nama'] ?></td>
                                             <td><?= $kategori['deskripsi'] ?></td>
@@ -62,8 +56,6 @@
                                     <?php $no++; endforeach ?>
                                 </tbody>
                             </table>
-                        </div>
-                            </p>
                         </div>
                     </div>
 
