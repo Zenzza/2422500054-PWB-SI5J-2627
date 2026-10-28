@@ -3,12 +3,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Ubah Produk</h1>
+          <h1 class="m-0">Ubah Game</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
+            <li class="breadcrumb-item active">Ubah Game</li>
           </ol>
         </div>
       </div>
@@ -27,14 +27,14 @@
 
               <form method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                  <label for="nama_produk" class="form-label">Nama produk</label>
+                  <label for="nama_produk" class="form-label">Nama Game</label>
                   <input type="text" class="form-control" name="nama_produk" id="nama_produk" aria-describedby="Nama produk" value="<?= $produk['nama'] ?>">
                   <small class="text-danger"><em><?= form_error('nama_produk') ?></em></small>
                 </div>
                 <div class="mb-3">
-                  <label for="kategori_produk" class="form-label">Kategori produk</label>
+                  <label for="kategori_produk" class="form-label">Genre Game</label>
                   <select class="form-select" name="kategori_produk" id="kategori_produk">
-                    <option value="" selected>-- pilih kategori --</option>
+                    <option value="" selected>-- Pilih Genre --</option>
                     <?php foreach ($list_kategori as $kategori) : ?>
                       <option <?= ($produk['id_kategori'] == $kategori['id_kategori']) ? "selected" : "" ?> value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama'] ?></option>
                     <?php endforeach ?>
@@ -49,26 +49,25 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="stok_produk" class="form-label">Stok produk</label>
+                  <label for="stok_produk" class="form-label">Stok Game</label>
                   <input type="text" class="form-control" name="stok_produk" id="stok_produk" aria-describedby="Stok produk" value="<?= $produk['stok'] ?>">
                   <small class="text-danger"><em><?= form_error('stok_produk') ?></em></small>
                 </div>
                 <div class="mb-3">
                   <label for="gambar_produk" class="form-label">Tambah Gambar Baru</label>
                   <input class="form-control" type="file" id="gambar_produk" name="gambar_produk[]" multiple accept="image/*" onchange="previewGambarBaru(this)">
-                  <small class="form-text text-muted">Bisa memilih lebih dari 1 foto sekaligus (tahan Ctrl atau Shift saat memilih file).</small>
                   <div id="previewListBaru" class="row mt-2"></div>
                 </div>
                 <?php
                 $list_gambar = $gambar_model->get_by_produk_id($produk['id_produk']);
                 ?>
                 <div class="mb-2">
-                  <label class="form-label d-block font-weight-bold">Foto Produk Saat Ini (<?= count($list_gambar) ?> Foto):</label>
+                  <label class="form-label d-block font-weight-bold">Foto Game Saat Ini (<?= count($list_gambar) ?> Foto):</label>
                 </div>
                 <div class="row mb-3">
                   <?php if (empty($list_gambar)) : ?>
                     <div class="col-12">
-                      <div class="alert alert-light border text-muted">Belum ada foto untuk produk ini.</div>
+                      <div class="alert alert-light border text-muted">Belum ada foto untuk game ini.</div>
                     </div>
                   <?php else : ?>
                     <?php foreach ($list_gambar as $gambar) : ?>
@@ -113,7 +112,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalLabel<?= $gambar['id_gambar'] ?>">Ubah Foto Produk</h5>
+          <h5 class="modal-title" id="modalLabel<?= $gambar['id_gambar'] ?>">Ubah Foto Game</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

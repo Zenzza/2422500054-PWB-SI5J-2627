@@ -5,29 +5,27 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Starter Page</h1>
+                    <h1 class="m-0">Genre Game</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item active">Genre Game</li>
                     </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5>Kategori</h5>
+                            <h5>Genre Game</h5>
                             <a href="<?= base_url('admin/kategori/tambah') ?>" class="btn btn-primary mb-3">
-                                <i class="fa fa-plus"></i> Kategori
+                                <i class="fa fa-plus"></i> Genre Game
                             </a>
                             <?php if ($this->session->flashdata('message')) : ?>
                                 <?= $this->session->flashdata('message') ?>
@@ -36,7 +34,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
+                                        <th>Genre</th>
                                         <th>Deskripsi</th>
                                         <th>Action</th>
                                     </tr>

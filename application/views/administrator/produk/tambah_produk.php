@@ -3,12 +3,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Tambah Produk</h1>
+          <h1 class="m-0">Tambah Game</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
+            <li class="breadcrumb-item active">Tambah Game</li>
           </ol>
         </div>
       </div>
@@ -24,14 +24,14 @@
               <p class="card-text">
                 <form method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                  <label for="nama_produk" class="form-label">Nama produk</label>
-                  <input type="text" class="form-control" name="nama_produk" id="nama_produk" aria-describedby="Nama produk">
+                  <label for="nama_produk" class="form-label">Nama Game</label>
+                  <input type="text" class="form-control" name="nama_produk" id="nama_produk" aria-describedby="Nama Game">
                   <small class="text-danger"><em><?= form_error('nama_produk') ?></em></small>
                 </div>
                 <div class="mb-3">
-                  <label for="kategori_produk" class="form-label">Kategori produk</label>
+                  <label for="kategori_produk" class="form-label">Genre Game</label>
                   <select class="form-select" name="kategori_produk" id="kategori_produk" class="form-control">
-                    <option value="" selected>-- pilih kategori --</option>
+                    <option value="" selected>-- Pilih Genre --</option>
                     <?php foreach ($list_kategori as $kategori) : ?>
                       <option value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama'] ?></option>
                     <?php endforeach ?>
@@ -47,8 +47,8 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="stok_produk" class="form-label">Stok produk</label>
-                  <input type="number" class="form-control" name="stok_produk" id="stok_produk" aria-describedby="Stok produk">
+                  <label for="stok_produk" class="form-label">Stok Game</label>
+                  <input type="number" class="form-control" name="stok_produk" id="stok_produk" aria-describedby="Stok">
                   <small class="text-danger"><em><?= form_error('stok_produk') ?></em></small>
                 </div>
                 <div class="mb-3">
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="mb-3">
-                  <label for="deskripsi_produk" class="form-label">Deskripsi</label>
+                  <label for="deskripsi_produk" class="form-label">Deskripsi Game</label>
                   <textarea name="deskripsi_produk" id="deskripsi_produk" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>

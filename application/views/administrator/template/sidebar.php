@@ -47,13 +47,13 @@
               <li class="nav-item">
                 <a href="<?= base_url() ?>admin/kategori" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Kategori</p>
+                  <p>Genre Game</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?= base_url() ?>admin/produk" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Produk</p>
+                  <p>Game</p>
                 </a>
               </li>
             </ul>
