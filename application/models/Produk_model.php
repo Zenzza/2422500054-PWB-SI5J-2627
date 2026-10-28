@@ -32,8 +32,7 @@ class Produk_model extends CI_Model
     public function ubah($data, $id)
     {
         $this->db->where('id_produk', $id);
-        $this->db->update($this->_table, $data);
-        return ($this->db->affected_rows() != 1) ? false : true;
+        return $this->db->update($this->_table, $data);
     }
 
     public function hapus($id)

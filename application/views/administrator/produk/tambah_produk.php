@@ -52,8 +52,8 @@
                   <small class="text-danger"><em><?= form_error('stok_produk') ?></em></small>
                 </div>
                 <div class="mb-3">
-                  <label for="gambar_produk" class="form-label">Gambar Produk</label>
-                  <input class="form-control" type="file" id="gambar_produk" name="gambar_produk[]" multiple>
+                  <label for="gambar_produk" class="form-label">Tambah Gambar Baru</label>
+                  <input class="form-control" type="file" id="gambar_produk" name="gambar_produk[]" multiple accept="image/*" onchange="previewGambarBaru(this)">
                 </div>
 
                 <div class="mb-3">
@@ -63,7 +63,6 @@
                 <button type="submit" class="btn btn-primary">Tambah</button>
                 <a href="<?= base_url('admin/produk') ?>" class="btn btn-danger">Kembali</a>
               </form>
-              </p>
             </div>
           </div>
 
@@ -73,3 +72,29 @@
     </div>
   </div>
 </div>
+
+<script>
+function previewGambarBaru(input) {
+  var previewList = document.getElementById('previewListBaru');
+  if (!previewList) return;
+  previewList.innerHTML = '';
+  if (input.files) {
+    Array.from(input.files).forEach(function(file) {
+      if (file.type.startsWith('image/')) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var col = document.createElement('div');
+          col.className = 'col-lg-2 col-md-3 col-sm-4 col-6 mb-2';
+          col.innerHTML = '<div class="card h-100 shadow-sm border">' +
+                          '<div class="bg-light d-flex align-items-center justify-content-center p-1" style="height: 120px; overflow: hidden;">' +
+                          '<img src="' + e.target.result + '" style="max-height: 100%; max-width: 100%; object-fit: contain;">' +
+                          '</div>' +
+                          '</div>';
+          previewList.appendChild(col);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+}
+</script>

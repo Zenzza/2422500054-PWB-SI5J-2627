@@ -55,27 +55,40 @@
                 </div>
                 <div class="mb-3">
                   <label for="gambar_produk" class="form-label">Tambah Gambar Baru</label>
-                  <input class="form-control" type="file" id="gambar_produk" name="gambar_produk[]" multiple>
+                  <input class="form-control" type="file" id="gambar_produk" name="gambar_produk[]" multiple accept="image/*" onchange="previewGambarBaru(this)">
+                  <small class="form-text text-muted">Bisa memilih lebih dari 1 foto sekaligus (tahan Ctrl atau Shift saat memilih file).</small>
+                  <div id="previewListBaru" class="row mt-2"></div>
                 </div>
                 <?php
                 $list_gambar = $gambar_model->get_by_produk_id($produk['id_produk']);
                 ?>
+                <div class="mb-2">
+                  <label class="form-label d-block font-weight-bold">Foto Produk Saat Ini (<?= count($list_gambar) ?> Foto):</label>
+                </div>
                 <div class="row mb-3">
-                  <?php foreach ($list_gambar as $gambar) : ?>
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                      <div class="card h-100 shadow-sm">
-                        <img src="<?= base_url('uploads/produk/') . $gambar['nama_gambar'] ?>" class="card-img-top" style="height: 160px; object-fit: cover;">
-                        <div class="card-body p-2 d-flex justify-content-between">
-                          <button type="button" class="btn btn-warning btn-sm mr-1 flex-fill" data-toggle="modal" data-target="#modalUbahFoto<?= $gambar['id_gambar'] ?>">
-                            <i class="fas fa-edit"></i> Ubah
-                          </button>
-                          <a href="<?= base_url('admin/produk/hapus_gambar/' . $gambar['id_gambar'] . '/' . $produk['id_produk']) ?>" class="btn btn-danger btn-sm ml-1 flex-fill" onclick="return confirm('Apakah Anda yakin ingin menghapus foto ini?')">
-                            <i class="fas fa-trash"></i> Hapus
-                          </a>
+                  <?php if (empty($list_gambar)) : ?>
+                    <div class="col-12">
+                      <div class="alert alert-light border text-muted">Belum ada foto untuk produk ini.</div>
+                    </div>
+                  <?php else : ?>
+                    <?php foreach ($list_gambar as $gambar) : ?>
+                      <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                        <div class="card h-100 shadow-sm">
+                          <div class="d-flex align-items-center justify-content-center bg-light" style="height: 220px; overflow: hidden; border-top-left-radius: calc(0.25rem - 1px); border-top-right-radius: calc(0.25rem - 1px);">
+                            <img src="<?= base_url('uploads/produk/') . $gambar['nama_gambar'] ?>" alt="Foto Produk" style="max-width: 100%; max-height: 100%; object-fit: contain; padding: 6px;">
+                          </div>
+                          <div class="card-body p-2 d-flex justify-content-between">
+                            <button type="button" class="btn btn-warning btn-sm mr-1 flex-fill" data-toggle="modal" data-target="#modalUbahFoto<?= $gambar['id_gambar'] ?>">
+                              <i class="fas fa-edit"></i> Ubah
+                            </button>
+                            <a href="<?= base_url('admin/produk/hapus_gambar/' . $gambar['id_gambar'] . '/' . $produk['id_produk']) ?>" class="btn btn-danger btn-sm ml-1 flex-fill" onclick="return confirm('Apakah Anda yakin ingin menghapus foto ini?')">
+                              <i class="fas fa-trash"></i> Hapus
+                            </a>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  <?php endforeach ?>
+                    <?php endforeach ?>
+                  <?php endif ?>
                 </div>
 
                 <div class="mb-3">
@@ -109,12 +122,14 @@
           <input type="hidden" name="id_produk" value="<?= $produk['id_produk'] ?>">
           <div class="modal-body text-center">
             <div class="mb-3">
-              <label class="form-label d-block text-muted">Foto Saat Ini:</label>
-              <img src="<?= base_url('uploads/produk/') . $gambar['nama_gambar'] ?>" class="img-fluid rounded border" style="max-height: 180px;">
+              <label id="preview_label_<?= $gambar['id_gambar'] ?>" class="form-label d-block text-muted">Foto Saat Ini:</label>
+              <div class="d-flex align-items-center justify-content-center bg-light rounded border mx-auto p-2" style="height: 220px; max-width: 300px;">
+                <img id="preview_img_<?= $gambar['id_gambar'] ?>" src="<?= base_url('uploads/produk/') . $gambar['nama_gambar'] ?>" alt="Preview Foto" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+              </div>
             </div>
             <div class="form-group text-left">
               <label for="foto_baru_<?= $gambar['id_gambar'] ?>" class="form-label">Pilih Foto Pengganti:</label>
-              <input type="file" name="foto_baru" id="foto_baru_<?= $gambar['id_gambar'] ?>" class="form-control" accept="image/*" required>
+              <input type="file" name="foto_baru" id="foto_baru_<?= $gambar['id_gambar'] ?>" class="form-control" accept="image/*" required onchange="previewFoto(this, '<?= $gambar['id_gambar'] ?>')">
             </div>
           </div>
           <div class="modal-footer">
@@ -126,3 +141,42 @@
     </div>
   </div>
 <?php endforeach ?>
+
+<script>
+function previewGambarBaru(input) {
+  var previewList = document.getElementById('previewListBaru');
+  if (!previewList) return;
+  previewList.innerHTML = '';
+  if (input.files) {
+    Array.from(input.files).forEach(function(file) {
+      if (file.type.startsWith('image/')) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var col = document.createElement('div');
+          col.className = 'col-lg-2 col-md-3 col-sm-4 col-6 mb-2';
+          col.innerHTML = '<div class="card h-100 shadow-sm border">' +
+                          '<div class="bg-light d-flex align-items-center justify-content-center p-1" style="height: 120px; overflow: hidden;">' +
+                          '<img src="' + e.target.result + '" style="max-height: 100%; max-width: 100%; object-fit: contain;">' +
+                          '</div>' +
+                          '</div>';
+          previewList.appendChild(col);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+}
+
+function previewFoto(input, id) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = document.getElementById('preview_img_' + id);
+      var label = document.getElementById('preview_label_' + id);
+      if (img) img.src = e.target.result;
+      if (label) label.textContent = 'Preview Foto Pengganti:';
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>

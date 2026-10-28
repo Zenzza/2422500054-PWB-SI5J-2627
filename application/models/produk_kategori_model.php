@@ -15,7 +15,6 @@ class produk_kategori_model extends CI_Model
     public function tambah($data)
     {
         $this->db->insert($this->_table, $data);
-        #untuk check apakah berhasil atau tidak input data
         return ($this->db->affected_rows() != 1) ? false : true;
     }
 

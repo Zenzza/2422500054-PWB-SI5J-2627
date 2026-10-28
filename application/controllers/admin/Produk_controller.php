@@ -72,33 +72,26 @@ class Produk_controller extends CI_Controller
 
     private function __produk_gambar_upload($count, $id_produk)
     {
-        $this->load->library('upload');
-
+        $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (!is_dir('./uploads/produk/')) {
+            mkdir('./uploads/produk/', 0777, true);
+        }
         for ($i = 0; $i < $count; $i++) {
-            if (!empty($_FILES['gambar_produk']['name'][$i])) {
-                $_FILES['file']['name'] = $_FILES['gambar_produk']['name'][$i];
-                $_FILES['file']['type'] = $_FILES['gambar_produk']['type'][$i];
-                $_FILES['file']['tmp_name'] = $_FILES['gambar_produk']['tmp_name'][$i];
-                $_FILES['file']['error'] = $_FILES['gambar_produk']['error'][$i];
-                $_FILES['file']['size'] = $_FILES['gambar_produk']['size'][$i];
+            if (!empty($_FILES['gambar_produk']['name'][$i]) && $_FILES['gambar_produk']['error'][$i] === UPLOAD_ERR_OK) {
+                $file_name = $_FILES['gambar_produk']['name'][$i];
+                $tmp_name = $_FILES['gambar_produk']['tmp_name'][$i];
+                $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-                $config['upload_path'] = './uploads/produk/';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif';
-                $config['max_size'] = 5000;
-                $config['file_name'] = "produk-" . $id_produk . '-' . $i . '-' . time();
-
-                $this->upload->initialize($config);
-
-                if ($this->upload->do_upload('file')) {
-                    $uploadData = $this->upload->data();
-                    $filename = $uploadData['file_name'];
-                    $data = [
-                        'nama_gambar' => $filename,
-                        'id_produk' => $id_produk
-                    ];
-                    $this->produk_gambar_model->tambah($data);
-                } else {
-                    log_message('error', $this->upload->display_errors());
+                if (in_array($ext, $allowed)) {
+                    $new_name = "produk-" . $id_produk . '-' . $i . '-' . time() . '.' . $ext;
+                    $dest = './uploads/produk/' . $new_name;
+                    if (move_uploaded_file($tmp_name, $dest)) {
+                        $data = [
+                            'nama_gambar' => $new_name,
+                            'id_produk' => $id_produk
+                        ];
+                        $this->produk_gambar_model->tambah($data);
+                    }
                 }
             }
         }
