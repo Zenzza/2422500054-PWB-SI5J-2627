@@ -68,3 +68,14 @@ $route['admin/produk/ubah/(:num)'] = 'admin/Produk_controller/ubah_produk/$1';
 $route['admin/produk/hapus/(:num)'] = 'admin/Produk_controller/hapus_produk/$1';
 $route['admin/produk/ubah_gambar/(:num)'] = 'admin/Produk_controller/ubah_gambar/$1';
 $route['admin/produk/hapus_gambar/(:num)/(:num)'] = 'admin/Produk_controller/hapus_gambar/$1/$2';
+
+#ekspedisi
+$route['admin/ekspedisi'] = 'admin/Ekspedisi2422500054_controller/index';
+$route['admin/ekspedisi/tambah'] = 'admin/Ekspedisi2422500054_controller/tambah_ekspedisi';
+$route['admin/ekspedisi/ubah/(:any)'] = 'admin/Ekspedisi2422500054_controller/ubah_ekspedisi/$1';
+$route['admin/ekspedisi/hapus/(:any)'] = 'admin/Ekspedisi2422500054_controller/hapus_ekspedisi/$1';
+
+$route['admin/ekspedisi2422500054'] = 'admin/Ekspedisi2422500054_controller/index';
+$route['admin/ekspedisi2422500054/tambah'] = 'admin/Ekspedisi2422500054_controller/tambah_ekspedisi';
+$route['admin/ekspedisi2422500054/ubah/(:any)'] = 'admin/Ekspedisi2422500054_controller/ubah_ekspedisi/$1';
+$route['admin/ekspedisi2422500054/hapus/(:any)'] = 'admin/Ekspedisi2422500054_controller/hapus_ekspedisi/$1';
