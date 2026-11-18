@@ -147,4 +147,19 @@ class Pelanggan_controller extends CI_Controller
         $this->session->unset_userdata($session_data);
         redirect(base_url());
     }
+
+    public function profil()
+    {
+        if (!$this->session->has_userdata('pelanggan_login')) {
+            redirect('login');
+            die;
+        }
+
+        $id = $this->session->userdata('id');
+        $data['pelanggan'] = $this->pelanggan_model->get_by_id($id);
+
+        $this->load->view('ecom/template/header');
+        $this->load->view('ecom/pelanggan_profil', $data);
+        $this->load->view('ecom/template/footer');
+    }
 }

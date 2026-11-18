@@ -83,6 +83,7 @@ $route['admin/ekspedisi2422500054/hapus/(:any)'] = 'admin/Ekspedisi2422500054_co
 $route['login'] = 'pelanggan_controller/login';
 $route['register'] = 'pelanggan_controller/register';
 $route['logout'] = 'pelanggan_controller/logout';
+$route['profil'] = 'pelanggan_controller/profil';
 
 #ecom
 $route['produk'] = 'produk_controller/detail';
